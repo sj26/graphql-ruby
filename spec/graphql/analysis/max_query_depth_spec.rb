@@ -97,4 +97,21 @@ describe GraphQL::Analysis::MaxQueryDepth do
       assert_equal 1, result["errors"].length
     end
   end
+
+  describe "with a query including a directive and variables without values" do
+    let(:query_string) { "
+      query ($id: Int!) {
+        cheese(id: $id) {
+          id
+          similarCheese(source: SHEEP) @include(if: true) {
+            id
+          }
+        }
+      }
+    " }
+
+    it "is broken" do
+      result
+    end
+  end
 end
